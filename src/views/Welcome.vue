@@ -2,20 +2,25 @@
 import Signup from '@/components/Signup.vue';
 import Login from '@/components/Login.vue';
 import { ref } from 'vue';
+import router from '@/router';
 
 let showLoginForm = ref(true);
+
+let enterChatroom = () => {
+    router.push({ name: "Chatroom" })
+}
 
 </script>
 
 <template>
     <div class="welcome container">
         <div v-if="showLoginForm">
-            <Login></Login>
-            <p>not a member? <span @click="showLoginForm=!showLoginForm">create account?</span></p>
+            <Login @enterChatroom="enterChatroom"></Login>
+            <p>not a member? <span @click="showLoginForm = !showLoginForm">create account?</span></p>
         </div>
         <div v-else>
-            <Signup></Signup>
-            <p>Already member? <span @click="showLoginForm=!showLoginForm">Login Account?</span></p>
+            <Signup @enterChatroom="enterChatroom"></Signup>
+            <p>Already member? <span @click="showLoginForm = !showLoginForm">Login Account?</span></p>
         </div>
     </div>
 </template>

@@ -6,12 +6,14 @@ let displayName = ref("");
 let email = ref("");
 let password = ref("");
 
+let emit = defineEmits(['enterChatroom']);
+
 let { error, createAccount } = useSignup();
 
 let signUp = async () => {
   let response = await createAccount(email.value, password.value, displayName.value);
   if (response) {
-
+    emit('enterChatroom');
   }
 }
 

@@ -2,16 +2,16 @@
 import { ref } from 'vue';
 import useLogin from '@/composables/useLogin';
 
-
 let email = ref("");
 let password = ref("");
+let emit = defineEmits(['enterChatroom']);
 
-let {error, signIn} = useLogin();
+let { error, signIn } = useLogin();
 
 let login = async () => {
     let res = await signIn(email.value, password.value);
-    if(res) {
-        console.log(res.user);
+    if (res) {
+        emit('enterChatroom');
     }
 }
 
