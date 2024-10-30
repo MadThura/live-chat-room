@@ -1,6 +1,7 @@
 <script setup>
 import Navbar from '@/components/Navbar.vue';
 import NewChatForm from '@/components/NewChatForm.vue';
+import ChatWindow from '@/components/ChatWindow.vue';
 import { watch } from 'vue';
 import getUser from '@/composables/getUser';
 import router from '@/router';
@@ -17,6 +18,7 @@ watch(user, () => {
 <template>
     <div class="container">
         <Navbar></Navbar>
+        <ChatWindow></ChatWindow>
         <NewChatForm></NewChatForm>
     </div>
 </template>
