@@ -1,12 +1,18 @@
 <script setup>
 import { ref } from 'vue';
+import useLogin from '@/composables/useLogin';
 
-let displayName = ref("");
+
 let email = ref("");
 let password = ref("");
 
-let login = () => {
-    console.log(displayName.value, email.value, password.value)
+let {error, signIn} = useLogin();
+
+let login = async () => {
+    let res = await signIn(email.value, password.value);
+    if(res) {
+        console.log(res.user);
+    }
 }
 
 </script>
@@ -16,6 +22,7 @@ let login = () => {
     <form @submit.prevent="login">
         <input type="email" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
+        <div v-if="error" class="error">{{ error }}</div>
         <button>Login</button>
     </form>
 </template>
