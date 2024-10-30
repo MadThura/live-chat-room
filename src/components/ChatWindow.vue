@@ -9,10 +9,10 @@ let messagesCollection = collection(db, "messages");
 let messagesQuery = query(messagesCollection, orderBy("created_at", "desc"));
 
 onSnapshot(messagesQuery, (snapshot) => {
-    let datas = snapshot.docs.map((doc) => ({
-        id: doc.id, ...doc.data()
-    }));
-    messages.value = datas;
+    snapshot.docs.forEach((doc) => {
+        let document = { id: doc.id, ...doc.data() }
+        doc.data().created_at && messages.value.push(document);
+    });
 });
 
 </script>
@@ -22,7 +22,7 @@ onSnapshot(messagesQuery, (snapshot) => {
         <div class="messages" v-for="message in messages" :key="message.id">
             <div class="single">
                 <span class="created-at">
-                    {{ message.created_at }}
+                    {{ message.created_at.toDate() }}
                 </span>
                 <span class="name">{{ message.name }}</span>
                 <span class="message">{{ message.message }}</span>
