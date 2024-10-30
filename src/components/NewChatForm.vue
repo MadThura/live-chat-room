@@ -1,18 +1,23 @@
 <script setup>
 import getUser from '@/composables/getUser';
 import { serverTimestamp } from 'firebase/firestore';
+import useCollection from '@/composables/useCollection';
 import { ref } from 'vue';
 
 let message = ref("");
 let { user } = getUser();
 
-let handleSubmit = () => {
+let {error, addData} = useCollection("messages");
+
+addData
+
+let handleSubmit = async () => {
     let chat = {
         message: message.value,
         name: user.value.displayName,
         created_at: serverTimestamp()
     }
-    console.log(chat);
+    await addData(chat);
     message.value = "";
 }
 </script>
@@ -28,6 +33,7 @@ let handleSubmit = () => {
 form {
     margin: 10px;
 }
+
 textarea {
     width: 100%;
     max-width: 100%;
