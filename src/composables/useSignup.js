@@ -15,7 +15,7 @@ let createAccount = async (email, password, displayName) => {
     });
     return response;
   } catch (err) {
-    error = err.message;
+    error.value = err.message;
   }
 };
 
